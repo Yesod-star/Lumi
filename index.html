@@ -125,15 +125,24 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
    BOTÃO HISTÓRICO DE DECISÕES
    ══════════════════════════════════════ */
 #hist-btn{
-  position:absolute;bottom:10px;left:16px;
-  font-family:'Cinzel',serif;font-size:0.51rem;letter-spacing:0.16em;
-  color:rgba(255,255,255,0.45);background:transparent;
-  border:none;border-radius:0;
-  padding:0;cursor:pointer;z-index:4;
-  transition:color 0.2s;
-  display:none;
+  position:absolute;bottom:36px;left:14px;
+  font-family:'Cinzel',serif;font-size:0.53rem;letter-spacing:0.18em;
+  color:rgba(255,255,255,0.45);background:rgba(6,16,58,0.7);
+  border:1px solid rgba(255,255,255,0.15);border-radius:2px;
+  padding:6px 12px;cursor:pointer;z-index:30;
+  transition:color 0.2s;display:none;
 }
-#hist-btn:hover{color:rgba(224,192,122,0.9)}
+#hist-btn:hover{color:rgba(224,192,122,0.9);border-color:rgba(224,192,122,0.3)}
+/* botão dentro do painel de choices */
+#hist-btn-choices{
+  align-self:flex-start;
+  font-family:'Cinzel',serif;font-size:0.53rem;letter-spacing:0.18em;
+  color:rgba(255,255,255,0.45);background:rgba(6,16,58,0.7);
+  border:1px solid rgba(255,255,255,0.15);border-radius:2px;
+  padding:6px 12px;cursor:pointer;z-index:22;
+  transition:color 0.2s;margin-bottom:4px;
+}
+#hist-btn-choices:hover{color:rgba(224,192,122,0.9);border-color:rgba(224,192,122,0.3)}
 
 /* PAINEL HISTÓRICO */
 #hist-panel{
@@ -306,7 +315,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
   #scene-badge{font-size:10px;letter-spacing:0.1em;bottom:8px;left:10px;color:rgba(255,255,255,0.45);max-width:60vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,0.8);}
   #prog-badge{font-size:10px;bottom:8px;right:10px;color:rgba(255,255,255,0.38);text-shadow:0 1px 4px rgba(0,0,0,0.8)}
   #back-btn{bottom:26px;right:10px;font-size:11px;padding:6px 12px;border-radius:3px}
-  #hist-btn{bottom:8px;left:14px;font-size:10px;padding:0}
+  #hist-btn{bottom:26px;left:10px;font-size:11px;padding:6px 12px;border-radius:3px}
   #hist-header{padding:14px 16px 12px}
   #hist-scroll{padding:14px 14px 12px}
   #hist-nav{padding:10px 14px}
@@ -436,12 +445,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
       </div>
     </div>
 
+    <button id="hist-btn" onclick="openHist()">‹ SLIDES ANTERIORES</button>
     <div id="fade"></div>
   </div>
   <div id="dialog" onclick="advance()">
     <div id="spk" class="hidden"></div>
     <div id="dtxt"><span id="tw"></span><span id="cur"></span></div>
-    <button id="hist-btn" onclick="openHist();event.stopPropagation()">‹ SLIDES ANTERIORES</button>
     <div id="hint">CLIQUE PARA CONTINUAR ›</div>
   </div>
 </div>
@@ -1071,6 +1080,13 @@ function showChoices(node){
   _('hint').classList.remove('on');_('dialog').style.pointerEvents='none';
   setSpeaker(null);_('tw').textContent='';
   const cw=_('choices');cw.innerHTML='';
+  // botão slides anteriores dentro do choices
+  if(slideLog.length>1){
+    const hb=document.createElement('button');hb.id='hist-btn-choices';
+    hb.textContent='‹ SLIDES ANTERIORES';hb.onclick=openHist;
+    hb.style.cssText='align-self:flex-start;font-family:Cinzel,serif;font-size:0.53rem;letter-spacing:0.18em;color:rgba(255,255,255,0.45);background:rgba(6,16,58,0.7);border:1px solid rgba(255,255,255,0.15);border-radius:2px;padding:6px 12px;cursor:pointer;margin-bottom:4px;transition:color 0.2s;';
+    cw.appendChild(hb);
+  }
   const q=node.qRef;
   const p=document.createElement('div');p.id='cprompt';p.textContent=q.prompt;cw.appendChild(p);
   q.opts.forEach((opt,i)=>{
