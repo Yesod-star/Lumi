@@ -18,15 +18,10 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
 
 /* SCENE */
 #scene{position:relative;flex:1;overflow:hidden;min-height:0}
-#scene-bg {
-  position: absolute;
-  inset: 0;
-
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  background-color: #000; /* MUITO IMPORTANTE */
+#scene-bg{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center center;
+  transition:background-image 1.3s ease, background 1.3s ease;
 }
 #scene-vig{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(6,16,58,0.55) 100%);pointer-events:none;z-index:2}
 #scene-grad{position:absolute;bottom:0;left:0;right:0;height:38%;background:linear-gradient(transparent,rgba(6,16,58,0.7));pointer-events:none;z-index:2}
@@ -125,15 +120,15 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
    BOTÃO HISTÓRICO DE DECISÕES
    ══════════════════════════════════════ */
 #hist-btn{
-  position:absolute;bottom:36px;left:14px;
-  font-family:'Cinzel',serif;font-size:0.53rem;letter-spacing:0.18em;
-  color:rgba(255,255,255,0.45);background:rgba(6,16,58,0.7);
-  border:1px solid rgba(255,255,255,0.15);border-radius:2px;
-  padding:6px 12px;cursor:pointer;z-index:30;
-  transition:color 0.2s,opacity 0.3s;
+  position:absolute;bottom:10px;left:16px;
+  font-family:'Cinzel',serif;font-size:0.51rem;letter-spacing:0.16em;
+  color:rgba(255,255,255,0.45);background:transparent;
+  border:none;border-radius:0;
+  padding:0;cursor:pointer;z-index:4;
+  transition:color 0.2s;
   display:none;
 }
-#hist-btn:hover{color:rgba(224,192,122,0.9);border-color:rgba(224,192,122,0.3)}
+#hist-btn:hover{color:rgba(224,192,122,0.9)}
 
 /* PAINEL HISTÓRICO */
 #hist-panel{
@@ -159,7 +154,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
   padding:6px 14px;cursor:pointer;transition:color 0.2s,border-color 0.2s;
 }
 #hist-close:hover{color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.5)}
-#hist-scroll{flex:1;overflow-y:auto;padding:18px 24px 28px;-webkit-overflow-scrolling:touch}
+#hist-scroll{flex:1;overflow-y:auto;padding:18px 24px 20px;-webkit-overflow-scrolling:touch}
 .hist-item{
   border:1px solid rgba(255,255,255,0.1);border-radius:3px;
   margin-bottom:14px;overflow:hidden;
@@ -182,6 +177,22 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
 .hist-at{font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.14em;color:rgba(255,255,255,0.5)}
 .hist-feedback{font-size:0.85rem;font-weight:300;color:rgba(255,255,255,0.55);line-height:1.65;font-style:italic}
 .hist-empty{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:rgba(255,255,255,0.25);text-align:center;margin-top:40px}
+
+/* NAVEGAÇÃO DO PAINEL */
+#hist-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 24px;border-top:1px solid rgba(224,192,122,0.16);
+  flex-shrink:0;
+}
+.hn-prev,.hn-next{
+  font-family:'Cinzel',serif;font-size:0.58rem;letter-spacing:0.18em;
+  color:rgba(255,255,255,0.5);background:transparent;
+  border:1px solid rgba(255,255,255,0.18);border-radius:2px;
+  padding:7px 16px;cursor:pointer;transition:color 0.2s,border-color 0.2s;
+}
+.hn-prev:hover:not(:disabled),.hn-next:hover:not(:disabled){color:rgba(255,255,255,0.9);border-color:rgba(255,255,255,0.5)}
+.hn-prev:disabled,.hn-next:disabled{opacity:0.25;cursor:default}
+.hn-pos{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.2em;color:var(--gold-dim)}
 
 /* START */
 #start{position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;background:linear-gradient(160deg,#06103a 0%,#0c1868 50%,#06103a 100%);overflow-y:auto}
@@ -290,9 +301,12 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
   #scene-badge{font-size:10px;letter-spacing:0.1em;bottom:8px;left:10px;color:rgba(255,255,255,0.45);max-width:60vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 4px rgba(0,0,0,0.8);}
   #prog-badge{font-size:10px;bottom:8px;right:10px;color:rgba(255,255,255,0.38);text-shadow:0 1px 4px rgba(0,0,0,0.8)}
   #back-btn{bottom:26px;right:10px;font-size:11px;padding:6px 12px;border-radius:3px}
-  #hist-btn{bottom:26px;left:10px;font-size:11px;padding:6px 12px;border-radius:3px}
+  #hist-btn{bottom:8px;left:14px;font-size:10px;padding:0}
   #hist-header{padding:14px 16px 12px}
-  #hist-scroll{padding:14px 14px 24px}
+  #hist-scroll{padding:14px 14px 12px}
+  #hist-nav{padding:10px 14px}
+  .hn-prev,.hn-next{font-size:11px;padding:6px 12px;letter-spacing:0.12em}
+  .hn-pos{font-size:11px}
   .hist-item-q{font-size:0.62rem}
   .hist-chosen{font-size:0.85rem}
   .hist-feedback{font-size:0.8rem}
@@ -397,20 +411,24 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
     </div>
     <div id="child-card" class="hidden"><div id="csc-lbl">LARA · 8 ANOS</div><div id="csc-mood"></div><div id="csc-posture"></div></div>
     <button id="back-btn" onclick="reiniciar()">↺ REINICIAR</button>
-    <button id="hist-btn" onclick="openHist()">‹ VER DECISÕES ANTERIORES</button>
     <div id="scene-badge"></div>
     <div id="prog-badge"></div>
     <div id="choices"><div id="cprompt"></div></div>
     <div id="fb"><div id="fb-in"><div id="fb-badge"></div><div id="fb-title"></div><div id="fb-txt"></div><div class="chips" id="fb-chips"></div><button id="fb-btn" onclick="fbNext()"></button></div></div>
     <div id="bif"><div class="bif-inner"><div class="bif-check">✓</div><div class="bif-tag">DECISÃO TECNICAMENTE CORRETA</div><div class="bif-title">Parabéns — você tomou a decisão técnica mais qualificada.</div><div class="bif-txt">Com revelação espontânea bem documentada, medida protetiva aplicada e encaminhamentos suficientes, você reconheceu que realizar a escuta seria revitimização institucional. Saber <em>quando não intervir</em> é o marcador mais sofisticado desta competência.</div><div class="bif-next"><div class="bif-next-tag">PRÓXIMO ATENDIMENTO</div><div class="bif-next-txt">Um novo caso acaba de chegar à sua mesa. Um adolescente de 13 anos aguarda na sala de espera com a avó paterna. O cenário é completamente diferente — e desta vez, a escuta especializada é necessária.</div></div><button class="bif-btn" onclick="loadPedro()">INICIAR NOVO ATENDIMENTO ›</button></div></div>
 
-    <!-- PAINEL HISTÓRICO -->
+    <!-- PAINEL HISTÓRICO / NAVEGAÇÃO DE SLIDES -->
     <div id="hist-panel">
       <div id="hist-header">
-        <div id="hist-header-title">DECISÕES ANTERIORES</div>
+        <div id="hist-header-title">SLIDES ANTERIORES</div>
         <button id="hist-close" onclick="closeHist()">FECHAR ×</button>
       </div>
       <div id="hist-scroll"></div>
+      <div id="hist-nav">
+        <button class="hn-prev" onclick="histNav(-1)">← ANTERIOR</button>
+        <span class="hn-pos">1 / 1</span>
+        <button class="hn-next" onclick="histNav(1)">PRÓXIMO →</button>
+      </div>
     </div>
 
     <div id="fade"></div>
@@ -418,6 +436,7 @@ html,body{width:100%;height:100%;overflow:hidden;background:#06103a;font-family:
   <div id="dialog" onclick="advance()">
     <div id="spk" class="hidden"></div>
     <div id="dtxt"><span id="tw"></span><span id="cur"></span></div>
+    <button id="hist-btn" onclick="openHist();event.stopPropagation()">‹ SLIDES ANTERIORES</button>
     <div id="hint">CLIQUE PARA CONTINUAR ›</div>
   </div>
 </div>
@@ -512,6 +531,7 @@ const SC_FALLBACK={
   pedro_closure:'radial-gradient(ellipse at 70% 40%,rgba(10,50,30,0.18) 0%,transparent 60%),linear-gradient(160deg,#06103a 0%,#082018 50%,#06103a 100%)',
 };
 
+// ── Aplica background: imagem se existir, fallback CSS caso não ──
 function setBg(imgKey, fallbackKey) {
   const el = document.querySelector('#scene-bg');
   const src = IMG_MAP[imgKey];
@@ -1013,8 +1033,8 @@ function applyStep(s){
   _('scene-badge').textContent=node.badge||'';
   _('prog-badge').textContent='DECISÕES: '+doneQ+'/'+totalQCount;
   renderChildCard(node.showChild===true);
-  // Mostrar botão histórico se há decisões feitas
-  if(doneQ>0&&!gameEnded){
+  // Mostrar botão histórico se há slides anteriores (>1 slide visitado)
+  if(slideLog.length>1&&!gameEnded){
     _('hist-btn').style.display='block';
   }
   if(node.isChoice){
@@ -1024,6 +1044,8 @@ function applyStep(s){
     typeText(node.txt||'');
     _('dialog').style.pointerEvents='auto';
     _('choices').classList.remove('on');
+    // Logar slide narrativo
+    if(node.txt) logSlide(node, null);
   }
 }
 
@@ -1064,6 +1086,9 @@ function onChoice(q,opt,node,clickedBtn,cw){
   rpt.total+=opt.s;
   if(q.dim){rpt.counts[q.dim]=(rpt.counts[q.dim]||0)+1;rpt.scores[q.dim]=(rpt.scores[q.dim]||0)+opt.s;}
   doneQ++;
+
+  // Logar slide de decisão com opção escolhida
+  logSlide(node, opt);
 
   // Mostrar botão histórico
   _('hist-btn').style.display='block';
@@ -1117,45 +1142,100 @@ function showFeedback(opt,next){
 function fbNext(){_('fb').classList.remove('on');if(feedbackCb)feedbackCb();feedbackCb=null;}
 
 // ══════════════════════════════════════════════
-// HISTÓRICO DE DECISÕES
+// SLIDE LOG — histórico de slides visitados
 // ══════════════════════════════════════════════
+let slideLog = []; // {badge, sp, txt, isChoice, q, chosenOpt}
+let histViewIdx = 0; // índice atual no slideLog ao navegar
+
+function logSlide(node, chosenOpt) {
+  // Registra um slide narrative ou um nó de choice (com opção escolhida)
+  slideLog.push({
+    badge: node.badge || '',
+    sp: node.sp || null,
+    txt: node.txt || '',
+    isChoice: !!node.isChoice,
+    q: node.isChoice ? node.qRef : null,
+    chosenOpt: chosenOpt || null,
+  });
+}
+
 function openHist(){
-  renderHistPanel();
+  if(slideLog.length === 0) return;
+  histViewIdx = slideLog.length - 1; // começa no último slide visitado
+  renderHistSlide();
   _('hist-panel').classList.add('on');
 }
 function closeHist(){
   _('hist-panel').classList.remove('on');
 }
-function renderHistPanel(){
-  const sc=_('hist-scroll');sc.innerHTML='';
-  if(rpt.hist.length===0){
-    const empty=document.createElement('div');empty.className='hist-empty';
-    empty.textContent='NENHUMA DECISÃO REGISTRADA AINDA';sc.appendChild(empty);return;
-  }
-  rpt.hist.forEach((h,idx)=>{
-    const s=h.o.s;
-    const isG=s>=8,isM=s>=5;
-    const col=isG?'rgba(90,230,155,0.9)':isM?'rgba(230,200,90,0.9)':'rgba(255,135,135,0.9)';
-    const borderCol=isG?'rgba(70,210,130,0.5)':isM?'rgba(210,178,70,0.5)':'rgba(255,100,100,0.5)';
+function histNav(dir){
+  histViewIdx = Math.max(0, Math.min(slideLog.length - 1, histViewIdx + dir));
+  renderHistSlide();
+}
+function renderHistSlide(){
+  const sc = _('hist-scroll');
+  const entry = slideLog[histViewIdx];
+  if (!entry) return;
 
-    const item=document.createElement('div');item.className='hist-item';
-    item.innerHTML=`
-      <div class="hist-item-header">
-        <div class="hist-item-num">DECISÃO ${h.num||idx+1}</div>
-        <div class="hist-item-q">${h.q.prompt}</div>
-      </div>
-      <div class="hist-item-body">
-        <div class="hist-chosen" style="border-left-color:${borderCol};background:${isG?'rgba(70,210,130,0.06)':isM?'rgba(210,178,70,0.06)':'rgba(255,100,100,0.06)'}">
-          ${h.o.t}
-        </div>
-        <div class="hist-score-row">
-          <span class="hist-score-badge" style="color:${col};background:${col.replace('0.9','0.12')};border:1px solid ${borderCol}">${sLabel(s)} · +${s} PTS</span>
-          <span class="hist-at">${h.o.at||''}</span>
-        </div>
-        <div class="hist-feedback">${h.o.f||''}</div>
-      </div>`;
-    sc.appendChild(item);
-  });
+  const total = slideLog.length;
+  const pos = histViewIdx + 1;
+
+  // Speaker
+  const spNames = {lara:'Lara',mae:'Mãe',pedro:'Pedro',avo:'Avó Paterna',tecnico:'Você'};
+  const spColor = {lara:'#ffd6e4',mae:'#bde0ff',pedro:'#ffd6e4',avo:'#bde0ff',tecnico:'#b8ffd6'};
+  const spLabel = entry.sp ? (spNames[entry.sp] || entry.sp) : null;
+  const spCol   = entry.sp ? (spColor[entry.sp] || 'rgba(224,192,122,0.6)') : null;
+
+  let html = '';
+
+  // Badge do slide
+  html += `<div style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.22em;color:rgba(255,255,255,0.28);margin-bottom:14px">${entry.badge}</div>`;
+
+  if (!entry.isChoice) {
+    // Slide narrativo
+    if (spLabel) {
+      html += `<div style="font-family:'Cinzel',serif;font-size:0.78rem;font-weight:600;letter-spacing:0.1em;color:${spCol};margin-bottom:8px">${spLabel}</div>`;
+    }
+    html += `<div style="font-size:1.05rem;font-weight:300;line-height:1.78;color:rgba(255,255,255,0.88)">${entry.txt}</div>`;
+  } else {
+    // Slide de decisão — mostra a pergunta e a opção escolhida (somente leitura)
+    const q = entry.q;
+    const chosen = entry.chosenOpt;
+    if (!q || !chosen) { sc.innerHTML = html; return; }
+    const s = chosen.s;
+    const isG = s>=8, isM = s>=5;
+    const col = isG?'rgba(90,230,155,0.9)':isM?'rgba(230,200,90,0.9)':'rgba(255,135,135,0.9)';
+    const borderCol = isG?'rgba(70,210,130,0.5)':isM?'rgba(210,178,70,0.5)':'rgba(255,100,100,0.5)';
+
+    html += `<div style="font-family:'Cinzel',serif;font-size:0.62rem;letter-spacing:0.18em;color:rgba(224,192,122,0.7);margin-bottom:12px">${q.prompt}</div>`;
+    // Todas as opções, a escolhida destacada
+    q.opts.forEach(opt => {
+      const isChosen = opt === chosen;
+      const isBest = opt.s >= 8;
+      let borderC = 'rgba(255,255,255,0.12)';
+      let bgC = 'rgba(255,255,255,0.02)';
+      let opacity = isChosen ? '1' : '0.38';
+      if (isChosen) { borderC = borderCol; bgC = isG?'rgba(70,210,130,0.08)':isM?'rgba(210,178,70,0.08)':'rgba(255,100,100,0.08)'; }
+      else if (isBest && !isChosen) { borderC = 'rgba(70,210,130,0.35)'; bgC = 'rgba(70,210,130,0.04)'; opacity='0.55'; }
+      html += `<div style="border:1px solid ${borderC};background:${bgC};border-radius:3px;padding:10px 14px;margin-bottom:8px;opacity:${opacity};font-size:0.9rem;font-weight:300;line-height:1.55;color:rgba(255,255,255,0.88)">`;
+      if (isChosen) html += `<span style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.15em;color:${col};display:block;margin-bottom:4px">SUA ESCOLHA · ${sLabel(s)} · +${s} PTS</span>`;
+      else if (isBest) html += `<span style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.15em;color:rgba(70,210,130,0.7);display:block;margin-bottom:4px">MAIS ADEQUADA</span>`;
+      html += `${opt.t}</div>`;
+    });
+    if (chosen.f) {
+      html += `<div style="margin-top:12px;padding:10px 14px;border-left:2px solid ${borderCol};font-size:0.85rem;font-weight:300;line-height:1.68;color:rgba(255,255,255,0.55);font-style:italic">${chosen.f}</div>`;
+    }
+  }
+
+  sc.innerHTML = html;
+
+  // Atualizar navegação
+  const navEl = _('hist-nav');
+  if (navEl) {
+    navEl.querySelector('.hn-pos').textContent = pos + ' / ' + total;
+    navEl.querySelector('.hn-prev').disabled = histViewIdx <= 0;
+    navEl.querySelector('.hn-next').disabled = histViewIdx >= slideLog.length - 1;
+  }
 }
 
 // ══════════════════════════════════════════════
@@ -1312,6 +1392,7 @@ function reiniciar(){
   child={trust:50,anxiety:40,open:30};
   hud_s={trust:50,seg:60,open:30,score:0};
   rpt={hist:[],total:0,counts:{},scores:{}};
+  slideLog=[];histViewIdx=0;
   _('fim').classList.remove('on');_('report').classList.remove('on');_('report').innerHTML='';
   _('fb').classList.remove('on');_('choices').classList.remove('on');_('bif').classList.remove('on');
   _('hist-panel').classList.remove('on');
