@@ -1078,6 +1078,7 @@ function advance(){
 // ══════════════════════════════════════════════
 function showChoices(node){
   _('hint').classList.remove('on');_('dialog').style.pointerEvents='none';
+  _('hist-btn').style.display='none';
   setSpeaker(null);_('tw').textContent='';
   const cw=_('choices');cw.innerHTML='';
   // botão slides anteriores dentro do choices
@@ -1111,13 +1112,11 @@ function onChoice(q,opt,node,clickedBtn,cw){
   // Logar slide de decisão com opção escolhida
   logSlide(node, opt);
 
-  // Mostrar botão histórico
-  _('hist-btn').style.display='block';
-
   if(node.isBifNode&&opt.bifOpt){
     showFeedback(opt,()=>{fadeThen(()=>{
       _('choices').classList.remove('on');
       _('dialog').style.pointerEvents='auto';
+      if(!gameEnded)_('hist-btn').style.display='block';
       _('bif').classList.add('on');
     });});
   }else if(node.isBifNode&&!opt.bifOpt){
@@ -1129,6 +1128,7 @@ function onChoice(q,opt,node,clickedBtn,cw){
   }else{
     showFeedback(opt,()=>{fadeThen(()=>{
       _('choices').classList.remove('on');_('dialog').style.pointerEvents='auto';
+      if(!gameEnded)_('hist-btn').style.display='block';
       step++;applyStep(step);
     });});
   }
